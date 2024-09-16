@@ -48,6 +48,10 @@ To run the app locally:
 1. Upload a PDF, enter URLs, or input a search query.
 2. Enter your question and click "Get Answer."
 3. View the answer generated from relevant documents or web search results, powered by the Ollama LLM.
+![image](https://github.com/user-attachments/assets/fa73bcad-3a31-485d-9553-c8fc8e01fddb)
+
+
+
 
 ## Tech Stack
 - Languages: Python
