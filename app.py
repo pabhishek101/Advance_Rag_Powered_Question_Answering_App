@@ -86,23 +86,19 @@ def process_input(input_type, input_data, question):
         doc_splits = text_splitter.split_documents(docs_list)
 
     elif input_type == "pdf":
-        # Open the PDF file in binary read mode
-        with open(input_data, 'rb') as f:
-            pdf_content = f.read()
 
-            # Create an in-memory file-like object from the PDF bytes
-            pdf_file = io.BytesIO(pdf_content)
-
-            # Use PyPDF2 with the in-memory file-like object
-            pdf_reader = PyPDF2.PdfReader(pdf_file)
-            text_list = [page.extract_text() for page in pdf_reader.pages]
+        pdf_file = io.BytesIO(input_data)  # input_data is already the PDF binary data
+        
+        # Use PyPDF2 to extract the text
+        pdf_reader = PyPDF2.PdfReader(pdf_file)
+        text_list = [page.extract_text() for page in pdf_reader.pages]
 
         docs = [Document(page_content=text) for text in text_list]
 
         # Split the PDF text into chunks
         text_splitter = CharacterTextSplitter.from_tiktoken_encoder(chunk_size=5000, chunk_overlap=50)
         doc_splits = text_splitter.split_documents(docs)
-
+        
     elif input_type == "search":
         # Perform web search
         search_results = web_search(input_data)
